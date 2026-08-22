@@ -57,13 +57,20 @@ nav a:hover{color:var(--ink)} nav a.on{color:var(--s1);border-bottom-color:var(-
 nav a:focus-visible{outline:2px solid var(--s1);outline-offset:-3px}
 .verdict{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--s2);border-radius:3px;
  box-shadow:var(--sh);padding:26px 28px;margin:34px 0 26px}
-.verdict p{margin:0 0 13px;font-size:16.5px;line-height:1.64;max-width:78ch}
+.verdict p{margin:0 0 13px;font-size:16.5px;line-height:1.64;max-width:none}
 .verdict p:last-child{margin-bottom:0}
 .kicker{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.13em;text-transform:uppercase;
  color:var(--s2);display:block;margin-bottom:12px}
-.controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:24px}
-.ctl{display:flex;align-items:center;gap:8px}
-.ctl .lb{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+/* Un filtro por renglón. Antes iban dos por línea y era fácil pasar uno por alto; además el bloque
+   quedaba pegado al texto de arriba. Cada renglón lleva su etiqueta a la izquierda, alineada en una
+   columna fija, de modo que los controles arrancan todos a la misma altura. */
+.controls{display:grid;grid-template-columns:1fr;gap:11px;margin:38px 0 30px;
+ padding:20px 22px;background:var(--surface);border:1px solid var(--line);border-radius:3px;box-shadow:var(--sh)}
+.ctl{display:grid;grid-template-columns:186px 1fr;align-items:center;gap:16px}
+.ctl .lb{font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.1em;
+ text-transform:uppercase;color:var(--ink-3);line-height:1.4}
+.ctl .seg{justify-self:start;flex-wrap:wrap}
+@media(max-width:760px){.ctl{grid-template-columns:1fr;gap:7px}.controls{padding:16px}}
 .seg{display:inline-flex;background:var(--surface-2);border:1px solid var(--line);border-radius:3px;padding:2px}
 .seg button{font-size:12.5px;font-weight:500;color:var(--ink-2);background:none;border:0;padding:6px 14px;
  cursor:pointer;border-radius:2px;font-family:inherit;transition:.14s}
@@ -89,7 +96,9 @@ section{margin-bottom:52px;scroll-margin-top:56px}
 .sechead{display:flex;align-items:baseline;gap:14px;padding-bottom:11px;border-bottom:1px solid var(--line);margin-bottom:20px}
 .secnum{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--ink-3);letter-spacing:.1em}
 h2{font-family:"IBM Plex Serif",Georgia,serif;font-size:21px;font-weight:600;letter-spacing:-.01em}
-.lede{color:var(--ink-2);font-size:14.5px;max-width:80ch;margin:0 0 20px}
+/* Los textos ocupan el mismo ancho que las tablas y las gráficas. Antes se cortaban antes y la
+   página se veía dispareja, con el texto en una columna angosta y los cuadros al ancho completo. */
+.lede{color:var(--ink-2);font-size:14.5px;max-width:none;margin:0 0 20px}
 .lede b{color:var(--ink);font-weight:600}
 .reading{background:var(--surface-2);border-left:2px solid var(--s1);padding:15px 19px;margin:20px 0 0;
  font-size:14px;line-height:1.65;color:var(--ink-2);border-radius:0 3px 3px 0}
@@ -160,7 +169,7 @@ tbody tr.dif td:first-child{font-style:normal}
 .hyp .q{font-weight:600;font-size:14.5px;margin-bottom:9px;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
 .hyp .tag{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;
  padding:3px 8px;border-radius:2px;flex:none}
-.hyp .a{font-size:13.8px;color:var(--ink-2);line-height:1.65;max-width:82ch}
+.hyp .a{font-size:13.8px;color:var(--ink-2);line-height:1.65;max-width:none}
 .hyp .a b{color:var(--ink)}
 .hyp .num{font-family:"IBM Plex Mono",monospace;font-size:12.5px;color:var(--ink);background:var(--surface-2);
  padding:7px 11px;border-radius:2px;margin-top:10px;display:inline-block}
@@ -242,6 +251,10 @@ footer{margin-top:46px;padding-top:20px;border-top:1px solid var(--line);
 .selbase{border-left:3px solid var(--s1)}
 .selbase .seg{margin:12px 0 0;flex-wrap:wrap}
 .selbase .ds{margin-top:12px;font-size:13.5px;line-height:1.65;color:var(--ink-2)}
+/* La fuente cierra el bloque descriptivo, separada por una línea fina para que se lea como pie. */
+.ds.fuente{margin-top:9px;padding-top:8px;border-top:1px solid var(--line-2);
+ font-size:12.5px;color:var(--ink-3)}
+.ds.fuente b{color:var(--ink-2)}
 /* Encabezados de dos pisos: el de arriba agrupa y va centrado sobre sus columnas. */
 th[colspan]{text-align:center;border-bottom:1px solid var(--line)}
 th[rowspan]{vertical-align:bottom}
@@ -365,32 +378,32 @@ th[rowspan]{vertical-align:bottom}
     <tbody>
      <tr><td>Base de la lámina</td>
       <td class="pos">+7.9%</td>
-      <td class="pos">+2.35</td>
+      <td class="pos">+2.37</td>
       <td class="pos">+4.7%</td>
-      <td class="pos">+1.35</td></tr>
+      <td class="pos">+1.37</td></tr>
      <tr><td>M1 Suministro total</td>
       <td class="pos">+0.4%</td>
-      <td class="neg">−0.01</td>
+      <td class="pos">+0.01</td>
       <td class="neg">−5.2%</td>
-      <td class="neg">−1.82</td></tr>
+      <td class="neg">−1.83</td></tr>
      <tr><td>M2 Suministro registrado</td>
       <td class="pos">+7.6%</td>
-      <td class="pos">+2.27</td>
+      <td class="pos">+2.28</td>
       <td class="pos">+4.1%</td>
-      <td class="pos">+1.16</td></tr>
+      <td class="pos">+1.18</td></tr>
      <tr><td>M3 Consumo documentado</td>
       <td class="pos">+6.4%</td>
-      <td class="pos">+1.95</td>
+      <td class="pos">+1.97</td>
       <td class="pos">+8.5%</td>
-      <td class="pos">+2.59</td></tr>
+      <td class="pos">+2.60</td></tr>
      <tr><td>M4 Venta en la bomba</td>
       <td class="pos">+6.1%</td>
-      <td class="pos">+1.88</td>
+      <td class="pos">+1.89</td>
       <td class="pos">+8.2%</td>
-      <td class="pos">+2.52</td></tr>
+      <td class="pos">+2.53</td></tr>
      <tr class="hl"><td>Rango entre bases</td><td></td>
-      <td>−0.01 a +2.35</td><td></td>
-      <td>−1.82 a +2.59</td></tr>
+      <td>+0.01 a +2.37</td><td></td>
+      <td>−1.83 a +2.60</td></tr>
     </tbody></table>
   </div>
   <div class="reading"><span class="t">Cómo se lee</span>
