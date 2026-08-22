@@ -1,0 +1,4 @@
+# Este material es de trabajo interno. Se publica en una dirección estática para poder
+# revisarlo en línea, no para que aparezca en buscadores.
+User-agent: *
+Disallow: /
